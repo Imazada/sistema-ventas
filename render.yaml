@@ -2,14 +2,12 @@ databases:
   - name: bd_tienda
     databaseName: bd_tienda
     user: admin_user
-    plan: free
 
 services:
   # Backend
   - type: web
     name: backend-gestion-productos
     env: node
-    plan: free
     rootDir: backend
     buildCommand: npm install
     startCommand: npm start
@@ -27,7 +25,6 @@ services:
   - type: web
     name: frontend-gestion-productos
     env: static
-    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
