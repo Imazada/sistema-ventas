@@ -1,0 +1,54 @@
+⚠️ CREDENCIALES GENERADAS - GUÁRDALAS EN RENDER.COM
+==================================================
+
+FECHA GENERADAS: 27 de abril de 2026
+ACCIÓN: .env fue removido de GitHub y están limpias ✅
+
+---
+
+📋 COPIAR ESTAS VARIABLES A RENDER.COM:
+
+JWT_SECRET
+──────────────────────────────────────
+CbHjLqPVKwuYDsWITaZNkRmXpyigxcMd
+
+
+BASE DE DATOS (se genera automáticamente)
+──────────────────────────────────────
+DATABASE_URL = [Render la proporciona]
+(Aparecerá automáticamente en el formulario de Render)
+
+
+---
+
+🎯 DÓNDE COPIAR EN RENDER:
+
+1. Backend Environment Variables (backend-gestion-productos):
+   ✓ JWT_SECRET = CbHjLqPVKwuYDsWITaZNkRmXpyigxcMd
+   ✓ NODE_ENV = production
+   ✓ FRONTEND_URL = https://frontend-gestion-productos.onrender.com
+   ✓ PORT = 3000
+   ✓ DATABASE_URL = (Render la genera, déjala que aparezca automáticamente)
+
+2. Frontend Environment Variables (frontend-gestion-productos):
+   ✓ VITE_API_URL = https://backend-gestion-productos.onrender.com/api
+
+---
+
+⚠️ IMPORTANTE:
+
+- NO compartas estas credenciales con nadie
+- El JWT_SECRET es único para tu instancia
+- La DATABASE_URL es generada por Render automáticamente
+- Si necesitas regenerar credenciales, ejecuta el script de PowerShell nuevamente
+
+---
+
+✅ PASOS SIGUIENTES:
+
+1. Ir a render.com
+2. Crear nuevas credenciales en el dashboard
+3. Pegar JWT_SECRET en variables de backend
+4. Ejecutar scripts SQL en pgAdmin de Render (database/init.sql)
+5. ¡Desplegar!
+

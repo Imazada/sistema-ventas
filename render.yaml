@@ -9,7 +9,7 @@ services:
     name: backend-gestion-productos
     env: node
     rootDir: backend
-    buildCommand: npm install
+    buildCommand: npm install --legacy-peer-deps
     startCommand: npm start
     envVars:
       - key: NODE_VERSION
@@ -20,6 +20,12 @@ services:
           property: connectionString
       - key: JWT_SECRET
         generateValue: true
+      - key: FRONTEND_URL
+        value: https://frontend-gestion-productos.onrender.com
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "3000"
 
   # Frontend
   - type: web
