@@ -16,7 +16,9 @@ Tu código está 100% listo para desplegar. Solo quedan 4 pasos manuales:
 
 ---
 
-## 📋 LO QUE TIENES QUE HACER (4 PASOS):
+## 📋 LO QUE TIENES QUE HACER (7 PASOS - SIN BLUEPRINT):
+
+⚠️ **IMPORTANTE**: Usaremos el método MANUAL para evitar cargos inesperados
 
 ### PASO 1️⃣: Crear Cuenta en Render.com
 → Ve a https://render.com
@@ -27,50 +29,87 @@ Tu código está 100% listo para desplegar. Solo quedan 4 pasos manuales:
 ⏱️ Tiempo: 2 minutos
 
 
-### PASO 2️⃣: Conectar tu Repositorio a Render
-1. Dashboard de Render → "New +" → "Blueprint"
-2. Haz clic en "Connect account" (GitHub)
-3. Selecciona tu repositorio: `Imazada/sistema-ventas`
-4. Render detectará automáticamente `render.yaml`
+### PASO 2️⃣: Crear Base de Datos PostgreSQL
+1. Dashboard de Render → "New +" → "PostgreSQL"
+2. Nombre: `bd_tienda`
+3. Región: Elige la más cercana
+4. ⚠️ Plan GRATUITO (cuidado: caduca en 90 días)
+5. Haz clic en "Create Database"
+6. **COPIA la Connection String** (DATABASE_URL)
+
+⏱️ Tiempo: 3 minutos
+💾 **Guarda**: `postgresql://user:pass@host:port/database`
+
+
+### PASO 3️⃣: Crear Servicio Backend
+1. Dashboard → "New +" → "Web Service"
+2. "Connect a repository" → Selecciona `sistema-ventas`
+3. Nombre: `backend-gestion-productos`
+4. Environment: `Node`
+5. Build Command: `npm install --legacy-peer-deps`
+6. Start Command: `npm start`
+7. Root Directory: `backend`
+8. Instance Type: **Plan GRATUITO**
+9. Haz clic en "Create Web Service"
+
+⏱️ Tiempo: 2 minutos
+
+
+### PASO 4️⃣: Configurar Variables de Entorno - Backend
+En el servicio Backend que acabas de crear:
+1. Ve a "Environment" en el panel izquierdo
+2. Agrega estas variables:
+   ```
+   DATABASE_URL = [PEGA la que copiaste del PASO 2]
+   JWT_SECRET = CbHjLqPVKwuYDsWITaZNkRmXpyigxcMd
+   NODE_ENV = production
+   FRONTEND_URL = https://frontend-gestion-productos.onrender.com
+   PORT = 3000
+   ```
+3. Haz clic en "Save"
+
+⏱️ Tiempo: 2 minutos
+
+
+### PASO 5️⃣: Crear Servicio Frontend
+1. Dashboard → "New +" → "Static Site"
+2. "Connect a repository" → Selecciona `sistema-ventas`
+3. Nombre: `frontend-gestion-productos`
+4. Build Command: `npm install && npm run build`
+5. Publish Directory: `dist`
+6. Root Directory: `frontend`
+7. Instance Type: **Plan GRATUITO**
+8. Haz clic en "Create Static Site"
+
+⏱️ Tiempo: 2 minutos
+
+
+### PASO 6️⃣: Configurar Variables de Entorno - Frontend
+En el servicio Frontend:
+1. Ve a "Environment" en el panel izquierdo
+2. Agrega esta variable:
+   ```
+   VITE_API_URL = https://backend-gestion-productos.onrender.com/api
+   ```
+3. Haz clic en "Save"
 
 ⏱️ Tiempo: 1 minuto
 
 
-### PASO 3️⃣: Revisar y Confirmar Despliegue
-Render te mostrará un formulario con las variables de entorno:
-
-✓ Backend (backend-gestion-productos):
-  - DATABASE_URL: [Aparece automáticamente]
-  - JWT_SECRET: [Generada automáticamente por Render]
-  - FRONTEND_URL: [Predefinida como HTTPS]
-  - NODE_ENV: production
-  - PORT: 3000
-
-✓ Frontend (frontend-gestion-productos):
-  - VITE_API_URL: [Predefinida correctamente]
-
-✓ Database (bd_tienda):
-  - [Se crea automáticamente]
-
-Simplemente haz clic en "Apply" para desplegar.
-
-⏱️ Tiempo: ~5-10 minutos (se despliegan automáticamente)
-
-
-### PASO 4️⃣: Ejecutar Scripts SQL en Render
+### PASO 7️⃣: Ejecutar Scripts SQL en Render
 Una vez que se cree la BD en Render:
 
-1. Dashboard Render → Selecciona tu BD (bd_tienda)
-2. Ve a "Connect" → Abre "pgAdmin" 
-3. Copia y pega el contenido de: `database/init.sql`
-4. Ejecuta los scripts en orden:
-   - 001_initial_schema.sql
-   - 002_create_users_roles.sql
-   - 003_create_carts_orders.sql
-   - 004_create_movements.sql
-   - 005_add_image_to_products.sql
-
-💡 OPCIONAL: Si quieres datos de prueba, ejecuta también `database/seed.sql`
+1. En Dashboard Render → Selecciona tu BD (bd_tienda)
+2. Ve a "Connect" → Busca "External Database URL"
+3. Copia la URL de conexión completa
+4. En tu terminal local, ejecuta:
+   ```bash
+   psql "[DATABASE_URL_AQUI]" < database/init.sql
+   ```
+5. O si lo prefieres manual:
+   - Abre pgAdmin desde Render
+   - Copia/pega manualmente cada script SQL
+   - Ejecuta en orden: 001, 002, 003, 004, 005
 
 ⏱️ Tiempo: 5 minutos
 
@@ -101,21 +140,22 @@ Prueba:
 - `CREDENCIALES_RENDER.txt` → Credenciales generadas (para referencia)
 - `backend/.env.example` → Estructura de variables (no tiene valores reales)
 - `frontend/.env.example` → URL de API para fronted
-- `render.yaml` → Configuración automática para Render
 
 
 ---
 
 ## ⚠️ RECORDATORIOS IMPORTANTES
 
-1. **Plan Gratuito de Render**:
-   - Los servicios duermen después de 15 min sin usar → primera carga tarda ~30 seg
-   - Base de datos expira después de 90 días → hacer backups periódicamente
+1. **Plan Gratuito de Render (SIN BLUEPRINT)**:
+   - ✅ Sin sorpresas de facturación
+   - ✅ Control total sobre cada servicio
+   - ⏱️ Los servicios duermen después de 15 min sin usar → primera carga tarda ~30 seg
+   - 📦 Base de datos expira después de 90 días → hacer backups periódicamente
 
 2. **Seguridad**:
    - El `.env` ya NO está en GitHub ✅
    - Las credenciales están seguras en Render (variables de entorno)
-   - JWT_SECRET es generado automáticamente por Render
+   - JWT_SECRET es tu clave especial (nunca en código)
 
 3. **Base de Datos**:
    - Los datos que crees en Render se guardan allí
