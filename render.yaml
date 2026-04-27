@@ -1,11 +1,11 @@
-services:
-  # Base de Datos PostgreSQL
-  - type: pserv
-    name: bd_tienda
-    env: postgres
+databases:
+  - name: bd_tienda
+    databaseName: bd_tienda
+    user: admin_user
     plan: free
 
-  # Backend (Node.js/Express)
+services:
+  # Backend
   - type: web
     name: backend-gestion-productos
     env: node
@@ -16,8 +16,6 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 18
-      - key: PORT
-        value: 10000
       - key: DATABASE_URL
         fromDatabase:
           name: bd_tienda
@@ -25,7 +23,7 @@ services:
       - key: JWT_SECRET
         generateValue: true
 
-  # Frontend (Static Site)
+  # Frontend
   - type: web
     name: frontend-gestion-productos
     env: static
