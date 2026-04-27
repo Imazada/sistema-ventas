@@ -1,0 +1,68 @@
+# =========================
+# 🔒 Variables sensibles
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# 📦 Node (frontend/backend JS)
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Builds
+dist/
+build/
+.out/
+
+# =========================
+# 🐍 Python (si usas backend)
+# =========================
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# =========================
+# 🗄️ Base de datos
+# =========================
+*.sqlite
+*.db
+
+# =========================
+# 🐳 Docker
+# =========================
+docker-data/
+*.log
+
+# =========================
+# 💻 Sistema operativo
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# 🧠 IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# 🔐 Claves / certificados
+# =========================
+*.pem
+*.key
+
+# =========================
+# 📂 Otros
+# =========================
+coverage/
+.tmp/
+.cache/

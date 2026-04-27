@@ -1,9 +1,8 @@
 services:
   # Base de Datos PostgreSQL
-  - type: database
+  - type: pserv
     name: bd_tienda
-    databaseName: bd_tienda
-    user: admin_user
+    env: postgres
     plan: free
 
   # Backend (Node.js/Express)
@@ -12,11 +11,11 @@ services:
     env: node
     plan: free
     rootDir: backend
-    buildCommand: npm install && npm run build # En caso de que se añadan pasos de compilación
+    buildCommand: npm install
     startCommand: npm start
     envVars:
       - key: NODE_VERSION
-        value: 18.0.0
+        value: 18
       - key: PORT
         value: 10000
       - key: DATABASE_URL
@@ -25,17 +24,13 @@ services:
           property: connectionString
       - key: JWT_SECRET
         generateValue: true
-      - key: FRONTEND_URL
-        value: https://frontend-gestion-productos.onrender.com # Ajustar tras el primer despliegue
 
   # Frontend (Static Site)
   - type: static
     name: frontend-gestion-productos
-    env: static
-    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     publishDir: dist
     envVars:
       - key: VITE_API_URL
-        value: https://backend-gestion-productos.onrender.com/api # Ajustar tras el primer despliegue
+        value: https://backend-gestion-productos.onrender.com/api
