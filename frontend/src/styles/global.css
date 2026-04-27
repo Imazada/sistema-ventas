@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans antialiased;
+  }
+}
+
+@layer components {
+  /* Tarjetas de Métricas */
+  .metric-card {
+    @apply bg-white rounded-2xl p-6 shadow-sm border border-slate-100/80 transition-all duration-300 
+           hover:shadow-md hover:border-primary-100 hover:-translate-y-0.5;
+  }
+
+  .metric-title {
+    @apply text-xs font-bold text-slate-400 uppercase tracking-widest mb-1;
+  }
+
+  .metric-value {
+    @apply text-2xl font-black text-slate-800 tracking-tight;
+  }
+
+  /* Botones Modernos */
+  .btn-primary {
+    @apply bg-primary-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm
+           hover:bg-primary-700 hover:shadow-lg hover:shadow-primary-500/30 
+           active:scale-[0.97] transition-all duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-slate-600 px-6 py-2.5 rounded-xl font-bold text-sm
+           border border-slate-200 hover:bg-slate-50 hover:border-slate-300
+           active:scale-[0.97] transition-all duration-200;
+  }
+
+  .btn-danger {
+    @apply bg-rose-50 text-rose-600 px-6 py-2.5 rounded-xl font-bold text-sm
+           border border-rose-100 hover:bg-rose-600 hover:text-white 
+           hover:shadow-lg hover:shadow-rose-500/20 active:scale-[0.97] transition-all duration-200;
+  }
+
+  /* Inputs Elegantes */
+  .input-field {
+    @apply w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl 
+           focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary-500/10 
+           focus:border-primary-500 transition-all duration-200 text-slate-700;
+  }
+
+  /* Contenedores de Tablas */
+  .table-container {
+    @apply bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden;
+  }
+
+  .table-header {
+    @apply bg-slate-50/50 border-b border-slate-100 px-6 py-5 font-bold text-slate-600 text-sm;
+  }
+
+  /* Modales Refinados */
+  .modal-overlay {
+    @apply fixed inset-0 bg-slate-900/40 backdrop-blur-[8px] flex items-center justify-center z-50 p-4;
+  }
+
+  .modal-content {
+    @apply bg-white rounded-[2rem] shadow-2xl max-w-md w-full p-8 border border-white/20;
+  }
+}
